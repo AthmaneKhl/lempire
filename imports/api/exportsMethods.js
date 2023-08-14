@@ -2,9 +2,10 @@ import { check } from "meteor/check";
 import { ExportsCollection } from "../db/ExportsCollection";
 
 Meteor.methods({
-  async "exports.start"() {
+  async "exports.start"(fastExport = false) {
     let progress = 0;
-
+    const speed = fastExport ? 100 : 1000;
+    console.log(fastExport);
     const exportId = ExportsCollection.insert({
       progress,
       createdAt: new Date(),
@@ -22,7 +23,7 @@ Meteor.methods({
       if (progress === 100) {
         Meteor.clearInterval(interval);
       }
-    }, 1000);
+    }, speed);
   },
 
   "exports.remove"(taskId) {

@@ -30,8 +30,13 @@ Template.mainContainer.helpers({
 });
 
 Template.mainContainer.events({
-  "click button"() {
-    Meteor.call("exports.start");
+  "click button"(_, instance) {
+    const fastExport = instance.state.get("fastExport");
+    Meteor.call("exports.start", fastExport);
+  },
+  "click #fast-export"(_, instance) {
+    const fastExport = instance.state.get("fastExport");
+    instance.state.set("fastExport", !fastExport);
   },
 });
 
