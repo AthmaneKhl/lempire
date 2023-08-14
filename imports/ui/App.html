@@ -1,0 +1,21 @@
+<body>
+    {{> mainContainer }}
+</body>
+
+<template name="mainContainer">
+    <div class="container">
+        <header>
+            <h1>Export List</h1>
+        </header>
+
+        <ul>
+            {{#each exports}}
+            {{> export}}
+            {{/each}}
+        </ul>
+    </div>
+</template>
+
+<template name="export">
+    <li>{{progress}}</li>
+</template>
