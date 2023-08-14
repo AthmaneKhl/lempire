@@ -1,28 +1,43 @@
 import { Template } from "meteor/templating";
 import { ReactiveDict } from "meteor/reactive-dict";
-
 import "./App.html";
 
-const IS_LOADING = "isLoading";
+const Exports = new Mongo.Collection("exports");
 
 Template.mainContainer.onCreated(function mainContainerOnCreated() {
   this.state = new ReactiveDict();
-
   const handler = Meteor.subscribe("exports");
+
   Tracker.autorun(() => {
-    this.state.set(IS_LOADING, !handler.ready());
+    const exports = Exports.find().fetch();
+    this.state.set({
+      isLoading: !handler.ready(),
+      exports,
+    });
   });
 });
 
 Template.mainContainer.helpers({
-  exports: [
-    { progress: 50 },
-    { progress: 20 },
-    { progress: 70 },
-    { progress: 100, url: "test.com" },
-  ],
+  exports: () => {
+    const instance = Template.instance();
+    return instance.state.get("exports");
+  },
+
   isLoading() {
     const instance = Template.instance();
-    return instance.state.get(IS_LOADING);
+    return instance.state.get("isLoading");
+  },
+});
+
+Template.mainContainer.events({
+  "click button"() {
+    Meteor.call("exports.start");
+  },
+});
+
+Template.export.events({
+  "click button"(event, instance) {
+    event.stopPropagation();
+    Meteor.call("exports.remove", instance.data._id);
   },
 });

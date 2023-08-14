@@ -7,15 +7,26 @@
         <header>
             <h1>Export List</h1>
         </header>
-
+        <button>Start a new Export</button>
+        {{#if isLoading}}
+        <div>Loading...</div>
+        {{else}}
         <ul>
             {{#each exports}}
             {{> export}}
             {{/each}}
         </ul>
+        {{/if}}
     </div>
 </template>
 
 <template name="export">
-    <li>{{progress}}</li>
+    <li>
+        {{#if url}}
+            {{url}} 
+        {{else}}
+            {{progress}} 
+        {{/if}}
+        <button>X</button>
+    </li>
 </template>
