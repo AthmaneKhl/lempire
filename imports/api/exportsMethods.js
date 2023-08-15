@@ -5,7 +5,7 @@ Meteor.methods({
   async "exports.start"(fastExport = false) {
     let progress = 0;
     const speed = fastExport ? 100 : 1000;
-    console.log(fastExport);
+
     const exportId = ExportsCollection.insert({
       progress,
       createdAt: new Date(),
