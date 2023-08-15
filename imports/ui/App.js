@@ -9,7 +9,7 @@ Template.mainContainer.onCreated(function mainContainerOnCreated() {
   const handler = Meteor.subscribe("exports");
 
   Tracker.autorun(() => {
-    const exports = Exports.find().fetch();
+    const exports = Exports.find({}, { sort: { createdAt: -1 } }).fetch();
     this.state.set({
       isLoading: !handler.ready(),
       exports,
@@ -22,7 +22,6 @@ Template.mainContainer.helpers({
     const instance = Template.instance();
     return instance.state.get("exports");
   },
-
   isLoading() {
     const instance = Template.instance();
     return instance.state.get("isLoading");
@@ -37,6 +36,13 @@ Template.mainContainer.events({
   "click #fast-export"(_, instance) {
     const fastExport = instance.state.get("fastExport");
     instance.state.set("fastExport", !fastExport);
+  },
+});
+
+Template.export.helpers({
+  exportStyle: () => {
+    const instance = Template.instance();
+    return { style: `width:${instance.data.progress}%` };
   },
 });
 

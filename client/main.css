@@ -2,3 +2,53 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+.main-container {
+  width: 400px;
+  margin: auto;    
+}
+
+.main-container button {
+  padding: 8px 12px;
+  cursor: pointer;
+  background: #0087ff;
+  border: 1px solid #0087ff;
+  border-radius: 8px;
+  color: white;
+  z-index: 99;
+}
+
+.main-container .start-export {
+  display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-container ul{
+  padding: 0;
+}
+
+.main-container li{
+  list-style: none;
+}
+
+.main-container .export{
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  border: 1px solid #6eb9dd;
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  align-items: center;
+}
+
+.main-container .export .progress{
+  position: absolute;
+  background: #c7ecfd4f;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transition: width ease 300ms;
+}

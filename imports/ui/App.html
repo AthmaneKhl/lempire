@@ -3,15 +3,17 @@
 </body>
 
 <template name="mainContainer">
-    <div class="container">
+    <div class="main-container">
         <header>
             <h1>Export List</h1>
         </header>
-        <button>Start a new Export</button>
-        <label>
-            <input type="checkbox" id="fast-export"/>
-            Use fast Export
-        </label>
+        <div class="start-export">
+            <label>
+                <input type="checkbox" id="fast-export" />
+                Use fast Export
+            </label>
+            <button>Start a new Export</button>
+        </div>
         {{#if isLoading}}
         <div>Loading...</div>
         {{else}}
@@ -26,11 +28,16 @@
 
 <template name="export">
     <li>
-        {{#if url}}
-            {{url}} 
-        {{else}}
-            {{progress}} 
-        {{/if}}
-        <button>X</button>
+        <div class="export">
+            <div class="progress" {{exportStyle}}></div>
+            <span>
+                {{#if url}}
+                    {{url}}
+                {{else}}
+                    {{progress}}%
+                {{/if}}
+            </span>
+            <button>X</button>
+        </div>
     </li>
 </template>
